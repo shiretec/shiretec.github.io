@@ -1,0 +1,11 @@
+import{Q as m,i as f,h as p,a as y,u as v,c as g,b as d,d as x,q as M}from"./index-Ho_YSQMq.js";var b=class extends m{constructor(e,t){super(e,t)}bindMethods(){super.bindMethods(),this.fetchNextPage=this.fetchNextPage.bind(this),this.fetchPreviousPage=this.fetchPreviousPage.bind(this)}setOptions(e,t){super.setOptions({...e,behavior:f()},t)}getOptimisticResult(e){return e.behavior=f(),super.getOptimisticResult(e)}fetchNextPage(e){return this.fetch({...e,meta:{fetchMore:{direction:"forward"}}})}fetchPreviousPage(e){return this.fetch({...e,meta:{fetchMore:{direction:"backward"}}})}createResult(e,t){var c,u,o,h;const{state:s}=e,r=super.createResult(e,t),{isFetching:i,isRefetching:P}=r,n=i&&((u=(c=s.fetchMeta)==null?void 0:c.fetchMore)==null?void 0:u.direction)==="forward",a=i&&((h=(o=s.fetchMeta)==null?void 0:o.fetchMore)==null?void 0:h.direction)==="backward";return{...r,fetchNextPage:this.fetchNextPage,fetchPreviousPage:this.fetchPreviousPage,hasNextPage:p(t,s.data),hasPreviousPage:y(t,s.data),isFetchingNextPage:n,isFetchingPreviousPage:a,isRefetching:P&&!n&&!a}}};function O(e,t){return v(e,b)}/**
+ * @license lucide-react v0.378.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const w=g("Plus",[["path",{d:"M5 12h14",key:"1ays0h"}],["path",{d:"M12 5v14",key:"s699le"}]]);/**
+ * @license lucide-react v0.378.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const F=g("Trash",[["path",{d:"M3 6h18",key:"d0wm0j"}],["path",{d:"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6",key:"4alrt4"}],["path",{d:"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2",key:"v07s0e"}]]),Q=({discussionId:e,page:t=1})=>d.get("/comments",{params:{discussionId:e,page:t}}),N=e=>({queryKey:["comments",e],queryFn:({pageParam:t=1})=>Q({discussionId:e,page:t}),getNextPageParam:t=>{var r,i;return((r=t==null?void 0:t.meta)==null?void 0:r.page)===((i=t==null?void 0:t.meta)==null?void 0:i.totalPages)?void 0:t.meta.page+1},initialPageParam:1}),C=({discussionId:e})=>O({...N(e)}),k=({discussionId:e})=>d.get(`/discussions/${e}`),q=e=>M({queryKey:["discussions",e],queryFn:()=>k({discussionId:e})}),l=({discussionId:e,queryConfig:t})=>x({...q(e),...t});export{w as P,F as T,N as a,l as b,q as g,C as u};
