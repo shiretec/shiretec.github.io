@@ -45,7 +45,6 @@ export const CalcProperty = () => {
       schema={calcPropertyInputSchema}
     >
       {({ register, watch, formState }) => {
-        // const startingMoney = ;
         const propertyValue = watch('propertyValue');
         return (
           <>
