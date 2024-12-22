@@ -1,48 +1,53 @@
-import { Pen } from 'lucide-react';
 import { z } from 'zod';
 
-import { Button } from '@/components/ui/button';
-import { Form, FormDrawer, Input, Textarea } from '@/components/ui/form';
+import { Form, Input, Label } from '@/components/ui/form';
 
 const calcPropertyInputSchema = z.object({
-  propertyName: z.string().min(1, 'Required'),
-  mortgage: z.number().min(0, 'Required'),
-  payment: z.number().min(0, 'Required'),
-  comment: z.string(),
+  propertyName: z.string(),
+
+  propertyValue: z.number(),
+  pvPercent: z.number(),
+  closingExpenses: z.number(),
+  monthlyFinancialObligations: z.number(),
+  termMonths: z.number(),
+
+  saleAmount: z.number(),
+  saleExpenses: z.number(),
+
+  monthlyMaintenance: z.number(),
+  monthlyIncome: z.number(),
 });
 
 export const CalcProperty = () => {
   return (
-    <FormDrawer
-      isDone={false}
-      triggerButton={
-        <Button icon={<Pen className="size-4" />} size="sm">
-          Calculate
-        </Button>
-      }
-      title="Calculate"
-      submitButton={
-        <Button form="update-profile" type="submit" size="sm">
-          Calculate
-        </Button>
-      }
+    <Form
+      id="calculate-property"
+      onSubmit={(values) => {
+        console.log('submit property', values);
+      }}
+      options={{
+        defaultValues: {
+          propertyName: '',
+          propertyValue: 450_000,
+          pvPercent: 10,
+          closingExpenses: 115_000,
+          monthlyFinancialObligations: 0,
+          termMonths: 18,
+
+          saleAmount: 1_800_000,
+          saleExpenses: 50_000,
+
+          monthlyMaintenance: 1_500,
+          monthlyIncome: 4_000,
+          incomeStartMonth: 0,
+        },
+      }}
+      schema={calcPropertyInputSchema}
     >
-      <Form
-        id="update-profile"
-        onSubmit={(values) => {
-          console.log('submit smt', values);
-        }}
-        options={{
-          defaultValues: {
-            propertyName: '',
-            mortgage: 10,
-            payment: 0,
-            comment: '',
-          },
-        }}
-        schema={calcPropertyInputSchema}
-      >
-        {({ register, formState }) => (
+      {({ register, watch, formState }) => {
+        // const startingMoney = ;
+        const propertyValue = watch('propertyValue');
+        return (
           <>
             <Input
               label="Property name"
@@ -50,26 +55,69 @@ export const CalcProperty = () => {
               registration={register('propertyName')}
             />
             <Input
-              label="Mortgage"
+              label="Property value"
               type="number"
-              error={formState.errors['mortgage']}
-              registration={register('mortgage')}
+              error={formState.errors['propertyValue']}
+              registration={register('propertyValue')}
             />
             <Input
-              label="Payment"
+              label="PV %"
               type="number"
-              error={formState.errors['payment']}
-              registration={register('payment')}
+              error={formState.errors['pvPercent']}
+              registration={register('pvPercent')}
             />
-
-            <Textarea
-              label="Comments"
-              error={formState.errors['comment']}
-              registration={register('comment')}
+            <Input
+              label="Closing expenses"
+              type="number"
+              error={formState.errors['closingExpenses']}
+              registration={register('closingExpenses')}
             />
+            <Input
+              label="Monthly financial obligations"
+              type="number"
+              error={formState.errors['monthlyFinancialObligations']}
+              registration={register('monthlyFinancialObligations')}
+            />
+            <Input
+              label="Term months"
+              type="number"
+              error={formState.errors['termMonths']}
+              registration={register('termMonths')}
+            />
+            <Input
+              label="Sale amount"
+              type="number"
+              error={formState.errors['saleAmount']}
+              registration={register('saleAmount')}
+            />
+            <Input
+              label="Sale expenses"
+              type="number"
+              error={formState.errors['saleExpenses']}
+              registration={register('saleExpenses')}
+            />
+            <Input
+              label="Monthly maintenance"
+              type="number"
+              error={formState.errors['monthlyMaintenance']}
+              registration={register('monthlyMaintenance')}
+            />
+            <Input
+              label="Monthly income"
+              type="number"
+              error={formState.errors['monthlyIncome']}
+              registration={register('monthlyIncome')}
+            />
+            <Input
+              label="Income start month"
+              type="number"
+              error={formState.errors['incomeStartMonth']}
+              registration={register('incomeStartMonth')}
+            />
+            <Label>Starting money {propertyValue * 2}</Label>
           </>
-        )}
-      </Form>
-    </FormDrawer>
+        );
+      }}
+    </Form>
   );
 };
