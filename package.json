@@ -7,9 +7,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint src --fix",
+    "prettier": "prettier src --write --ignore-unknown",
+    "prep:ci": "yarn run prettier && yarn run lint",
     "preview": "vite preview",
-    "gh-deploy": "gh-pages -d dist"
+    "gh-deploy": "gh-pages -d dist",
+    "prepare": "husky"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -21,10 +24,14 @@
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "3.5.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.22.0",
     "vite": "^6.1.0"

@@ -1,1 +1,1 @@
-export * from './clicks-counter';
+export * from "./clicks-counter";
