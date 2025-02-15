@@ -3,8 +3,11 @@ import { useState } from "react";
 export const ClicksCounter = () => {
   const [count, setCount] = useState(0);
   return (
-    <button onClick={() => setCount((count) => count + 1)}>
-      count is {count}
-    </button>
+    <>
+      <div style={{ marginBottom: "8px" }}>Click to increase the counter</div>
+      <button onClick={() => setCount((count) => count + 1)}>
+        count is {count}
+      </button>
+    </>
   );
 };
