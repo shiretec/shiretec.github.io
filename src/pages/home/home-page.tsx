@@ -32,11 +32,11 @@ export const HomePage = () => {
   return (
     <>
       <Center bg="purple.200" p={2}>
-        <Heading>Estimate your Real Estate ideas</Heading>
+        <Heading>ShiRETec - Estimate your Real Estate ideas</Heading>
       </Center>
       <Box p={2}>
         <Button bg="purple.500" onClick={onAddRealEstate}>
-          Add more real estate!
+          Add more properties!
         </Button>
         <Grid
           mt={2}

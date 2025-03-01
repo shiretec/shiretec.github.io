@@ -26,7 +26,7 @@ export const RealEstateCard: React.FC<RealEstateCardProps> = ({
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" p={6} boxShadow="md">
       <Fieldset.Root size="lg" maxW="md">
         <Stack>
-          <Fieldset.Legend>Real Estate {details.id}</Fieldset.Legend>
+          <Fieldset.Legend>Property {details.id}</Fieldset.Legend>
           <Fieldset.HelperText>
             Please provide details below.
           </Fieldset.HelperText>
