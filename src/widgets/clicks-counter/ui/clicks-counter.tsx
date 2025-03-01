@@ -3,14 +3,19 @@ import { Button, HStack } from "@chakra-ui/react";
 
 export const ClicksCounter = () => {
   const [count, setCount] = useState(0);
+
+  const onClickHandler = () => {
+    setCount((count) => count + 1);
+  }
+
   return (
     <>
       <div style={{ marginBottom: "8px" }}>Click to increase the counter</div>
-      <button onClick={() => setCount((count) => count + 1)}>
+      <div>
         count is {count}
-      </button>
+      </div>
       <HStack>
-        <Button onClick={() => setCount((count) => count + 1)}>
+        <Button onClick={onClickHandler}>
           Increase!
         </Button>
         <Button onClick={() => setCount((count) => count - 1)}>
