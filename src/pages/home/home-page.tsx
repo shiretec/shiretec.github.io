@@ -7,25 +7,23 @@ const defaultReslEstateDetails: RealEstateDetails = {
   id: "",
   cash: "300000",
   mortgagePercentage: "10",
-  strategy: false
+  strategy: false,
 };
 
 export const HomePage = () => {
-  const [realEstates, setRealEstates] = useState<RealEstateDetails[]>(
-    [{ ...defaultReslEstateDetails, id: uuid() }]
-  );
+  const [realEstates, setRealEstates] = useState<RealEstateDetails[]>([
+    { ...defaultReslEstateDetails, id: uuid() },
+  ]);
 
   const onAddRealEstate = () => {
-    setRealEstates(realEstates => (
-      [
-        ...realEstates,
-        { ...defaultReslEstateDetails, id: uuid() }
-      ]
-    ));
+    setRealEstates((realEstates) => [
+      ...realEstates,
+      { ...defaultReslEstateDetails, id: uuid() },
+    ]);
   };
 
   const onUpdateRealEstate = (updatedDetails: RealEstateDetails) => {
-    const newEstates = realEstates.map(details => {
+    const newEstates = realEstates.map((details) => {
       return details.id === updatedDetails.id ? updatedDetails : details;
     });
     setRealEstates(newEstates);
@@ -45,7 +43,7 @@ export const HomePage = () => {
           gap={1}
           gridTemplateColumns="repeat(auto-fill, minmax(24rem, 24rem))"
         >
-          {realEstates.map(realEstate => (
+          {realEstates.map((realEstate) => (
             <GridItem key={realEstate.id}>
               <RealEstateCard
                 key={realEstate.id}

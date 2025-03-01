@@ -1,1 +1,1 @@
-export * from './real-estate-card.tsx';
+export * from "./real-estate-card.tsx";

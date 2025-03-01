@@ -6,18 +6,14 @@ export const ClicksCounter = () => {
 
   const onClickHandler = () => {
     setCount((count) => count + 1);
-  }
+  };
 
   return (
     <>
       <div style={{ marginBottom: "8px" }}>Click to increase the counter</div>
-      <div>
-        count is {count}
-      </div>
+      <div>count is {count}</div>
       <HStack>
-        <Button onClick={onClickHandler}>
-          Increase!
-        </Button>
+        <Button onClick={onClickHandler}>Increase!</Button>
         <Button onClick={() => setCount((count) => count - 1)}>
           Decrease!
         </Button>
