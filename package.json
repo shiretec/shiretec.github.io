@@ -11,7 +11,7 @@
     "prettier": "prettier src --write --ignore-unknown",
     "prep:ci": "yarn run prettier && yarn run lint",
     "preview": "vite preview",
-    "gh-deploy": "gh-pages -d dist",
+    "gh-deploy": "yarn build && gh-pages -d dist",
     "prepare": "husky"
   },
   "dependencies": {
