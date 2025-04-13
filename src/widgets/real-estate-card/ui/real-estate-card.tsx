@@ -23,8 +23,16 @@ export const RealEstateCard: React.FC<RealEstateCardProps> = ({
   onDetailsChange,
 }) => {
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" p={6} boxShadow="md">
-      <Fieldset.Root size="lg" maxW="md">
+    <Box
+      maxW="sm"
+      maxH="sm"
+      overflowY="auto"
+      borderWidth="1px"
+      borderRadius="lg"
+      p={6}
+      boxShadow="md"
+    >
+      <Fieldset.Root size="lg">
         <Stack>
           <Fieldset.Legend>Property {details.id}</Fieldset.Legend>
           <Fieldset.HelperText>
@@ -69,6 +77,37 @@ export const RealEstateCard: React.FC<RealEstateCardProps> = ({
                 onDetailsChange({ ...details, mortgagePercentage: e.value });
               }}
             >
+              <NumberInputField />
+            </NumberInputRoot>
+          </Field>
+
+          <Field label="Cash2">
+            <NumberInputRoot name="cash2" maxW="200px" value={details.cash}>
+              <NumberInputField />
+            </NumberInputRoot>
+          </Field>
+          <Field label="Cash3">
+            <NumberInputRoot name="cash3" maxW="200px" value={details.cash}>
+              <NumberInputField />
+            </NumberInputRoot>
+          </Field>
+          <Field label="Cash4">
+            <NumberInputRoot name="cash4" maxW="200px" value={details.cash}>
+              <NumberInputField />
+            </NumberInputRoot>
+          </Field>
+          <Field label="Cash5">
+            <NumberInputRoot name="cash5" maxW="200px" value={details.cash}>
+              <NumberInputField />
+            </NumberInputRoot>
+          </Field>
+          <Field label="Cash6">
+            <NumberInputRoot name="cash6" maxW="200px" value={details.cash}>
+              <NumberInputField />
+            </NumberInputRoot>
+          </Field>
+          <Field label="Cash7">
+            <NumberInputRoot name="cash7" maxW="200px" value={details.cash}>
               <NumberInputField />
             </NumberInputRoot>
           </Field>
