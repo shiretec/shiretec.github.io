@@ -1,7 +1,7 @@
-import { HomePage } from "@/pages/home";
+import { RealEstateCalculationPage } from "@/pages/home";
 
 function App() {
-  return <HomePage />;
+  return <RealEstateCalculationPage />;
 }
 
 export default App;
