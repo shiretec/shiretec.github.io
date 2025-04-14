@@ -1,6 +1,7 @@
 import { Center, Container, Flex, Heading, Stack } from "@chakra-ui/react";
 import { SocialLinks } from "@/widgets/social-links";
 import { Copyright } from "@/widgets/copyright";
+import { ReStrategySelector } from "../../features/re-strategy-selector";
 
 export const RealEstateCalculationPage = () => {
   return (
@@ -9,7 +10,9 @@ export const RealEstateCalculationPage = () => {
         <Heading>Estimate your Real Estate ideas with "ShiRETec"</Heading>
       </Center>
 
-      <Container flex={1}>Center</Container>
+      <Container flex={1} py={2}>
+        <ReStrategySelector />
+      </Container>
 
       <Center as="footer" bg="purple.200" pt={2} pb={1}>
         <Stack gap={1}>
