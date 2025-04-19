@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { RealEstateFormState } from "../../model";
 import { useI18n } from "../../../i18n/model/use-i18n";
+import { currencies } from "../../../currency/model";
 
 interface PropertyFormProps {
   initialValues?: Partial<RealEstateFormState>;
@@ -42,7 +43,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
   onSave,
   onAddToComparison,
 }) => {
-  const { t } = useI18n();
+  const { t, currency } = useI18n();
   const [formData, setFormData] = useState<RealEstateFormState>({
     ...defaultValues,
     ...initialValues,
@@ -257,7 +258,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                       borderLeftWidth="0"
                       borderRadius="0 4px 4px 0"
                     >
-                      {t("rubles")}
+                      {currencies[currency].symbol}
                     </Box>
                   </Flex>
                 </Box>
@@ -286,7 +287,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                       borderLeftWidth="0"
                       borderRadius="0 4px 4px 0"
                     >
-                      {t("rubles")}
+                      {currencies[currency].symbol}
                     </Box>
                   </Flex>
                 </Box>

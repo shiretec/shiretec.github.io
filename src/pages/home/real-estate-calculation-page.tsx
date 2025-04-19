@@ -11,21 +11,18 @@ import {
   RealEstateFormState,
   RealEstateProperty,
 } from "../../features/real-estate/model";
-import { LanguageSwitcher } from "../../features/i18n/ui/language-switcher";
-import { I18nProvider, useI18n } from "../../features/i18n/model";
+import { LanguageSwitcher } from "../../features/i18n/ui/language-switcher-redux";
+import { useI18n } from "../../features/i18n/model/use-i18n-redux";
+import { CurrencySelector } from "../../features/currency/ui/currency-selector-redux";
 
-// The main page component wrapped with I18nProvider
+// The main page component using Redux
 export const RealEstateCalculationPage = () => {
-  return (
-    <I18nProvider>
-      <RealEstateCalculator />
-    </I18nProvider>
-  );
+  return <RealEstateCalculator />;
 };
 
-// The actual calculator component with access to i18n
+// The actual calculator component with access to i18n via Redux
 const RealEstateCalculator = () => {
-  const { t, language, setLanguage } = useI18n();
+  const { t } = useI18n();
 
   // State for managing properties
   const [properties, setProperties] = useState<RealEstateProperty[]>([]);
@@ -174,10 +171,10 @@ const RealEstateCalculator = () => {
         alignItems="center"
       >
         <Heading size="lg">{t("pageTitle")}</Heading>
-        <LanguageSwitcher
-          currentLanguage={language}
-          onLanguageChange={(lang: string) => setLanguage(lang as "ru" | "en")}
-        />
+        <Flex gap={4} alignItems="center">
+          <CurrencySelector />
+          <LanguageSwitcher />
+        </Flex>
       </Flex>
 
       <Container maxW="container.xl" flex={1} py={4}>

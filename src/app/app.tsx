@@ -1,7 +1,13 @@
 import { RealEstateCalculationPage } from "@/pages/home";
+import { Provider } from 'react-redux';
+import { store } from './providers/store/store';
 
 function App() {
-  return <RealEstateCalculationPage />;
+  return (
+    <Provider store={store}>
+      <RealEstateCalculationPage />
+    </Provider>
+  );
 }
 
 export default App;

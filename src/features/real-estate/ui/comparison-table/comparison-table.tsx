@@ -7,8 +7,9 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
+import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { RealEstateProperty } from "../../model";
-import { useI18n } from "../../../i18n/model/use-i18n";
+import { useI18n } from "../../../i18n/model/use-i18n-redux";
 
 interface ComparisonTableProps {
   properties: RealEstateProperty[];
@@ -21,7 +22,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
   onEdit,
   onDelete,
 }) => {
-  const { t } = useI18n();
+  const { t, formatAmount } = useI18n();
   if (properties.length === 0) {
     return (
       <Box mt={8} p={4} textAlign="center" bg="gray.50" borderRadius="md">
@@ -58,17 +59,18 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                 <Box mt={2} display="flex" gap={2}>
                   <IconButton
                     aria-label="Edit property"
-                    _icon={{ boxSize: 4 }}
                     size="xs"
                     onClick={() => onEdit(property.id)}
-                  />
+                  >
+                    <LuPencil size={16} />
+                  </IconButton>
                   <IconButton
                     aria-label="Delete property"
-                    _icon={{ boxSize: 4 }}
                     size="xs"
-                    colorScheme="red"
                     onClick={() => onDelete(property.id)}
-                  />
+                  >
+                    <LuTrash2 size={16} />
+                  </IconButton>
                 </Box>
               </Box>
             </Box>
@@ -93,14 +95,14 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
         <GridItem fontWeight="bold">{t("initialInvestment")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.initialInvestment.toLocaleString()} {t("rubles")}
+            {formatAmount(property.initialInvestment)}
           </GridItem>
         ))}
 
         <GridItem fontWeight="bold">{t("downPayment")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.downPayment.toLocaleString()} {t("rubles")}
+            {formatAmount(property.downPayment)}
           </GridItem>
         ))}
 
@@ -128,35 +130,35 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
         <GridItem fontWeight="bold">{t("propertyTax")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.propertyTax.toLocaleString()} {t("perYear")}
+            {formatAmount(property.propertyTax)} {t("perYear")}
           </GridItem>
         ))}
 
         <GridItem fontWeight="bold">{t("insurance")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.insurance.toLocaleString()} {t("perYear")}
+            {formatAmount(property.insurance)} {t("perYear")}
           </GridItem>
         ))}
 
         <GridItem fontWeight="bold">{t("utilities")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.utilities.toLocaleString()} {t("perMonth")}
+            {formatAmount(property.utilities)} {t("perMonth")}
           </GridItem>
         ))}
 
         <GridItem fontWeight="bold">{t("maintenance")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.maintenance.toLocaleString()} {t("perMonth")}
+            {formatAmount(property.maintenance)} {t("perMonth")}
           </GridItem>
         ))}
 
         <GridItem fontWeight="bold">{t("managementFees")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.managementFees.toLocaleString()} {t("perMonth")}
+            {formatAmount(property.managementFees)} {t("perMonth")}
           </GridItem>
         ))}
 
@@ -169,7 +171,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
         <GridItem fontWeight="bold">{t("monthlyRent")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.monthlyRent.toLocaleString()} {t("perMonth")}
+            {formatAmount(property.monthlyRent)} {t("perMonth")}
           </GridItem>
         ))}
 
@@ -204,7 +206,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                 : "normal"
             }
           >
-            {(property.cashFlow || 0).toLocaleString()} {t("perMonth")}
+            {formatAmount(property.cashFlow || 0)} {t("perMonth")}
           </GridItem>
         ))}
 

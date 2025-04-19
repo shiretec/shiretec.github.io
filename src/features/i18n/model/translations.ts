@@ -63,8 +63,14 @@ export const translations = {
     percent: "%",
     years: "лет",
     months: "мес",
-    perMonth: "₽/мес",
-    perYear: "₽/год",
+    perMonth: "/мес",
+    perYear: "/год",
+    
+    // Currency
+    currency: "Валюта",
+    currencyRUB: "Российский рубль",
+    currencyUSD: "Доллар США",
+    currencyEUR: "Евро",
   },
   en: {
     // Page titles
@@ -129,7 +135,13 @@ export const translations = {
     percent: "%",
     years: "years",
     months: "mo",
-    perMonth: "₽/mo",
-    perYear: "₽/yr",
+    perMonth: "/mo",
+    perYear: "/yr",
+    
+    // Currency
+    currency: "Currency",
+    currencyRUB: "Russian Ruble",
+    currencyUSD: "US Dollar",
+    currencyEUR: "Euro",
   },
 };
