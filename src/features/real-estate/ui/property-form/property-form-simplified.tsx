@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { RealEstateFormState } from "../../model";
 import { useI18n } from "../../../i18n/model/use-i18n-redux";
-import { CurrencySelector } from "../../../currency/ui/currency-selector-redux";
 import { currencies } from "../../../currency/model";
 import { useAppSelector } from "../../../../app/providers/store/hooks";
 import { RootState } from "../../../../app/providers/store/store";
@@ -166,7 +165,6 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
       <Box bg="purple.100" p={4}>
         <Flex justifyContent="space-between" alignItems="center">
           <Heading size="md">{t("propertyFormTitle")}</Heading>
-          <CurrencySelector />
         </Flex>
       </Box>
       <Box p={4}>
