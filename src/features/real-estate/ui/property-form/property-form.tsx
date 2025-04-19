@@ -10,8 +10,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { RealEstateFormState } from "../../model";
-import { useI18n } from "../../../i18n/model/use-i18n";
+import { useI18n } from "../../../i18n/model/use-i18n-redux";
 import { currencies } from "../../../currency/model";
+import { useAppSelector } from "../../../../app/providers/store/hooks";
+import { RootState } from "../../../../app/providers/store/store";
 
 interface PropertyFormProps {
   initialValues?: Partial<RealEstateFormState>;
@@ -39,11 +41,14 @@ const defaultValues: RealEstateFormState = {
 };
 
 export const PropertyForm: React.FC<PropertyFormProps> = ({
-  initialValues = {},
+  initialValues,
   onSave,
   onAddToComparison,
 }) => {
-  const { t, currency } = useI18n();
+  const { t } = useI18n();
+  const currency = useAppSelector(
+    (state: RootState) => state.currency.currency,
+  );
   const [formData, setFormData] = useState<RealEstateFormState>({
     ...defaultValues,
     ...initialValues,
@@ -158,7 +163,9 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
   return (
     <Box borderWidth="1px" borderRadius="md" overflow="hidden">
       <Box bg="purple.100" p={4}>
-        <Heading size="md">{t("propertyFormTitle")}</Heading>
+        <Flex justifyContent="space-between" alignItems="center">
+          <Heading size="md">{t("propertyFormTitle")}</Heading>
+        </Flex>
       </Box>
       <Box p={4}>
         {/* Tab Navigation */}
