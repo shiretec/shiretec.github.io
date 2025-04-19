@@ -10,6 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { RealEstateFormState } from "../../model";
+import { useI18n } from "../../../i18n/model/use-i18n";
 
 interface PropertyFormProps {
   initialValues?: Partial<RealEstateFormState>;
@@ -41,6 +42,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
   onSave,
   onAddToComparison,
 }) => {
+  const { t } = useI18n();
   const [formData, setFormData] = useState<RealEstateFormState>({
     ...defaultValues,
     ...initialValues,
@@ -155,7 +157,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
   return (
     <Box borderWidth="1px" borderRadius="md" overflow="hidden">
       <Box bg="purple.100" p={4}>
-        <Heading size="md">Выбор варианта</Heading>
+        <Heading size="md">{t("propertyFormTitle")}</Heading>
       </Box>
       <Box p={4}>
         {/* Tab Navigation */}
@@ -165,20 +167,20 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
             onClick={() => setActiveTab("basic")}
             mr={2}
           >
-            Основная информация
+            {t("propertyInfoTab")}
           </Button>
           <Button
             variant={activeTab === "expenses" ? "solid" : "outline"}
             onClick={() => setActiveTab("expenses")}
             mr={2}
           >
-            Расходы
+            {t("expensesTab")}
           </Button>
           <Button
             variant={activeTab === "income" ? "solid" : "outline"}
             onClick={() => setActiveTab("income")}
           >
-            Доходы
+            {t("incomeTab")}
           </Button>
         </Flex>
 
@@ -187,19 +189,19 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
           <Flex direction="column" gap={4}>
             <Box>
               <Text mb={1} fontWeight="bold">
-                Название объекта
+                {t("propertyName")}
               </Text>
               <Input
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Введите название объекта"
+                placeholder={t("propertyName")}
               />
             </Box>
 
             <Box>
               <Text mb={1} fontWeight="bold">
-                Тип недвижимости
+                {t("propertyType")}
               </Text>
               <select
                 name="propertyType"
@@ -212,22 +214,22 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   borderColor: "#E2E8F0",
                 }}
               >
-                <option value="">Выберите тип недвижимости</option>
-                <option value="apartment">Квартира</option>
-                <option value="house">Дом</option>
-                <option value="commercial">Коммерческая недвижимость</option>
+                <option value="">{t("propertyType")}</option>
+                <option value="apartment">{t("apartment")}</option>
+                <option value="house">{t("house")}</option>
+                <option value="commercial">{t("commercial")}</option>
               </select>
             </Box>
 
             <Box>
               <Text mb={1} fontWeight="bold">
-                Адрес
+                {t("propertyAddress")}
               </Text>
               <Input
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                placeholder="Введите адрес"
+                placeholder={t("propertyAddress")}
               />
             </Box>
 
@@ -235,7 +237,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
               <GridItem>
                 <Box>
                   <Text mb={1} fontWeight="bold">
-                    Стоимость объекта
+                    {t("initialInvestment")}
                   </Text>
                   <Flex>
                     <Input
@@ -255,7 +257,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                       borderLeftWidth="0"
                       borderRadius="0 4px 4px 0"
                     >
-                      ₽
+                      {t("rubles")}
                     </Box>
                   </Flex>
                 </Box>
@@ -264,7 +266,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
               <GridItem>
                 <Box>
                   <Text mb={1} fontWeight="bold">
-                    Первоначальный взнос
+                    {t("downPayment")}
                   </Text>
                   <Flex>
                     <Input
@@ -284,7 +286,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                       borderLeftWidth="0"
                       borderRadius="0 4px 4px 0"
                     >
-                      ₽
+                      {t("rubles")}
                     </Box>
                   </Flex>
                 </Box>
@@ -295,7 +297,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
               <GridItem>
                 <Box>
                   <Text mb={1} fontWeight="bold">
-                    Процентная ставка
+                    {t("interestRate")}
                   </Text>
                   <Flex>
                     <Input
@@ -315,7 +317,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                       borderLeftWidth="0"
                       borderRadius="0 4px 4px 0"
                     >
-                      %
+                      {t("percent")}
                     </Box>
                   </Flex>
                 </Box>
@@ -324,7 +326,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
               <GridItem>
                 <Box>
                   <Text mb={1} fontWeight="bold">
-                    Срок кредита
+                    {t("loanTerm")}
                   </Text>
                   <Flex>
                     <Input
@@ -344,7 +346,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                       borderLeftWidth="0"
                       borderRadius="0 4px 4px 0"
                     >
-                      лет
+                      {t("years")}
                     </Box>
                   </Flex>
                 </Box>
@@ -358,7 +360,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
           <Flex direction="column" gap={4}>
             <Box>
               <Text mb={1} fontWeight="bold">
-                Налог на недвижимость
+                {t("propertyTax")}
               </Text>
               <Flex>
                 <Input
@@ -378,14 +380,14 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   borderLeftWidth="0"
                   borderRadius="0 4px 4px 0"
                 >
-                  ₽/год
+                  {t("perYear")}
                 </Box>
               </Flex>
             </Box>
 
             <Box>
               <Text mb={1} fontWeight="bold">
-                Страховка
+                {t("insurance")}
               </Text>
               <Flex>
                 <Input
@@ -405,14 +407,14 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   borderLeftWidth="0"
                   borderRadius="0 4px 4px 0"
                 >
-                  ₽/год
+                  {t("perYear")}
                 </Box>
               </Flex>
             </Box>
 
             <Box>
               <Text mb={1} fontWeight="bold">
-                Коммунальные услуги
+                {t("utilities")}
               </Text>
               <Flex>
                 <Input
@@ -432,14 +434,14 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   borderLeftWidth="0"
                   borderRadius="0 4px 4px 0"
                 >
-                  ₽/мес
+                  {t("perMonth")}
                 </Box>
               </Flex>
             </Box>
 
             <Box>
               <Text mb={1} fontWeight="bold">
-                Обслуживание
+                {t("maintenance")}
               </Text>
               <Flex>
                 <Input
@@ -459,14 +461,14 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   borderLeftWidth="0"
                   borderRadius="0 4px 4px 0"
                 >
-                  ₽/мес
+                  {t("perMonth")}
                 </Box>
               </Flex>
             </Box>
 
             <Box>
               <Text mb={1} fontWeight="bold">
-                Управление недвижимостью
+                {t("managementFees")}
               </Text>
               <Flex>
                 <Input
@@ -486,7 +488,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   borderLeftWidth="0"
                   borderRadius="0 4px 4px 0"
                 >
-                  ₽/мес
+                  {t("perMonth")}
                 </Box>
               </Flex>
             </Box>
@@ -498,7 +500,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
           <Flex direction="column" gap={4}>
             <Box>
               <Text mb={1} fontWeight="bold">
-                Ежемесячная арендная плата
+                {t("monthlyRent")}
               </Text>
               <Flex>
                 <Input
@@ -518,14 +520,14 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   borderLeftWidth="0"
                   borderRadius="0 4px 4px 0"
                 >
-                  ₽/мес
+                  {t("perMonth")}
                 </Box>
               </Flex>
             </Box>
 
             <Box>
               <Text mb={1} fontWeight="bold">
-                Заполняемость
+                {t("occupancyRate")}
               </Text>
               <Flex>
                 <Input
@@ -561,7 +563,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
                   onChange={handleCheckboxChange}
                   style={{ marginRight: "8px" }}
                 />
-                <Text>Сезонные корректировки</Text>
+                <Text>{t("seasonalAdjustments")}</Text>
               </Flex>
             </Box>
           </Flex>
@@ -570,33 +572,33 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
         {/* Calculated Metrics */}
         <Box mt={6} p={4} bg="gray.50" borderRadius="md">
           <Heading size="sm" mb={3}>
-            Расчетные показатели
+            {t("calculatedMetrics")}
           </Heading>
 
           <Grid templateColumns="repeat(3, 1fr)" gap={4}>
             <GridItem>
-              <Text fontWeight="bold">Денежный поток:</Text>
-              <Text>{metrics.cashFlow.toFixed(2)} ₽/мес</Text>
+              <Text fontWeight="bold">{t("cashFlow")}:</Text>
+              <Text>{metrics.cashFlow.toFixed(2)} {t("perMonth")}</Text>
             </GridItem>
 
             <GridItem>
-              <Text fontWeight="bold">ROI:</Text>
-              <Text>{metrics.roi.toFixed(2)}%</Text>
+              <Text fontWeight="bold">{t("roi")}:</Text>
+              <Text>{metrics.roi.toFixed(2)}{t("percent")}</Text>
             </GridItem>
 
             <GridItem>
-              <Text fontWeight="bold">Окупаемость:</Text>
-              <Text>{metrics.paybackPeriod.toFixed(2)} лет</Text>
+              <Text fontWeight="bold">{t("paybackPeriod")}:</Text>
+              <Text>{metrics.paybackPeriod.toFixed(2)} {t("years")}</Text>
             </GridItem>
 
             <GridItem>
-              <Text fontWeight="bold">Доходность на вложенные:</Text>
-              <Text>{metrics.cashOnCash.toFixed(2)}%</Text>
+              <Text fontWeight="bold">{t("cashOnCash")}:</Text>
+              <Text>{metrics.cashOnCash.toFixed(2)}{t("percent")}</Text>
             </GridItem>
 
             <GridItem>
-              <Text fontWeight="bold">Капитализация:</Text>
-              <Text>{metrics.capRate.toFixed(2)}%</Text>
+              <Text fontWeight="bold">{t("capRate")}:</Text>
+              <Text>{metrics.capRate.toFixed(2)}{t("percent")}</Text>
             </GridItem>
           </Grid>
         </Box>
@@ -604,11 +606,11 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
         {/* Form Controls */}
         <Flex mt={6} justifyContent="space-between">
           <Button colorScheme="blue" onClick={handleSave}>
-            Сохранить
+            {t("save")}
           </Button>
 
           <Button colorScheme="green" onClick={handleAddToComparison}>
-            Добавить к сравнению
+            {t("addToComparison")}
           </Button>
         </Flex>
       </Box>

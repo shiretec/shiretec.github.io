@@ -8,6 +8,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { RealEstateProperty } from "../../model";
+import { useI18n } from "../../../i18n/model/use-i18n";
 
 interface ComparisonTableProps {
   properties: RealEstateProperty[];
@@ -20,10 +21,11 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const { t } = useI18n();
   if (properties.length === 0) {
     return (
       <Box mt={8} p={4} textAlign="center" bg="gray.50" borderRadius="md">
-        <Text>Добавьте объекты недвижимости для сравнения</Text>
+        <Text>{t("noPropertiesMessage")}</Text>
       </Box>
     );
   }
@@ -40,7 +42,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
   return (
     <Box mt={8}>
       <Heading size="md" mb={4}>
-        Сравнение объектов
+        {t("comparisonTableTitle")}
       </Heading>
 
       <Grid templateColumns={`auto repeat(${properties.length}, 1fr)`} gap={4}>
@@ -51,7 +53,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
             <Box borderWidth="1px" borderRadius="md" overflow="hidden">
               <Box bg="gray.100" p={2}>
                 <Heading size="sm">
-                  {property.name || "Объект недвижимости"}
+                  {property.name || t("propertyFormTitle")}
                 </Heading>
                 <Box mt={2} display="flex" gap={2}>
                   <IconButton
@@ -74,110 +76,110 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
         ))}
 
         {/* Property Information */}
-        <GridItem fontWeight="bold">Тип недвижимости</GridItem>
+        <GridItem fontWeight="bold">{t("propertyType")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
             {property.propertyType === "apartment"
-              ? "Квартира"
+              ? t("apartment")
               : property.propertyType === "house"
-                ? "Дом"
+                ? t("house")
                 : property.propertyType === "commercial"
-                  ? "Коммерческая недвижимость"
+                  ? t("commercial")
                   : property.propertyType}
           </GridItem>
         ))}
 
         {/* Investment Information */}
-        <GridItem fontWeight="bold">Стоимость объекта</GridItem>
+        <GridItem fontWeight="bold">{t("initialInvestment")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.initialInvestment.toLocaleString()} ₽
+            {property.initialInvestment.toLocaleString()} {t("rubles")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Первоначальный взнос</GridItem>
+        <GridItem fontWeight="bold">{t("downPayment")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.downPayment.toLocaleString()} ₽
+            {property.downPayment.toLocaleString()} {t("rubles")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Ставка по кредиту</GridItem>
+        <GridItem fontWeight="bold">{t("interestRate")}</GridItem>
         {properties.map((property) => (
-          <GridItem key={property.id}>{property.interestRate}%</GridItem>
+          <GridItem key={property.id}>{property.interestRate}{t("percent")}</GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Срок кредита</GridItem>
+        <GridItem fontWeight="bold">{t("loanTerm")}</GridItem>
         {properties.map((property) => (
-          <GridItem key={property.id}>{property.loanTerm} лет</GridItem>
+          <GridItem key={property.id}>{property.loanTerm} {t("years")}</GridItem>
         ))}
 
         {/* Expenses */}
         <GridItem colSpan={properties.length + 1}>
           <Box borderBottomWidth="1px" my={2} />
-          <Heading size="sm">Расходы</Heading>
+          <Heading size="sm">{t("expensesTab")}</Heading>
         </GridItem>
 
-        <GridItem fontWeight="bold">Налог на недвижимость</GridItem>
+        <GridItem fontWeight="bold">{t("propertyTax")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.propertyTax.toLocaleString()} ₽/год
+            {property.propertyTax.toLocaleString()} {t("perYear")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Страховка</GridItem>
+        <GridItem fontWeight="bold">{t("insurance")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.insurance.toLocaleString()} ₽/год
+            {property.insurance.toLocaleString()} {t("perYear")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Коммунальные услуги</GridItem>
+        <GridItem fontWeight="bold">{t("utilities")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.utilities.toLocaleString()} ₽/мес
+            {property.utilities.toLocaleString()} {t("perMonth")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Обслуживание</GridItem>
+        <GridItem fontWeight="bold">{t("maintenance")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.maintenance.toLocaleString()} ₽/мес
+            {property.maintenance.toLocaleString()} {t("perMonth")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Управление недвижимостью</GridItem>
+        <GridItem fontWeight="bold">{t("managementFees")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.managementFees.toLocaleString()} ₽/мес
+            {property.managementFees.toLocaleString()} {t("perMonth")}
           </GridItem>
         ))}
 
         {/* Income */}
         <GridItem colSpan={properties.length + 1}>
           <Box borderBottomWidth="1px" my={2} />
-          <Heading size="sm">Доходы</Heading>
+          <Heading size="sm">{t("incomeTab")}</Heading>
         </GridItem>
 
-        <GridItem fontWeight="bold">Арендная плата</GridItem>
+        <GridItem fontWeight="bold">{t("monthlyRent")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {property.monthlyRent.toLocaleString()} ₽/мес
+            {property.monthlyRent.toLocaleString()} {t("perMonth")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Заполняемость</GridItem>
+        <GridItem fontWeight="bold">{t("occupancyRate")}</GridItem>
         {properties.map((property) => (
-          <GridItem key={property.id}>{property.occupancyRate}%</GridItem>
+          <GridItem key={property.id}>{property.occupancyRate}{t("percent")}</GridItem>
         ))}
 
         {/* Calculated Metrics */}
         <GridItem colSpan={properties.length + 1}>
           <Box borderBottomWidth="1px" my={2} />
-          <Heading size="sm">Расчетные показатели</Heading>
+          <Heading size="sm">{t("calculatedMetrics")}</Heading>
         </GridItem>
 
-        <GridItem fontWeight="bold">Денежный поток</GridItem>
+        <GridItem fontWeight="bold">{t("cashFlow")}</GridItem>
         {properties.map((property) => (
           <GridItem
             key={property.id}
@@ -194,11 +196,11 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                 : "normal"
             }
           >
-            {(property.cashFlow || 0).toLocaleString()} ₽/мес
+            {(property.cashFlow || 0).toLocaleString()} {t("perMonth")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">ROI</GridItem>
+        <GridItem fontWeight="bold">{t("roi")}</GridItem>
         {properties.map((property) => (
           <GridItem
             key={property.id}
@@ -213,11 +215,11 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                 : "normal"
             }
           >
-            {(property.roi || 0).toFixed(2)}%
+            {(property.roi || 0).toFixed(2)}{t("percent")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Окупаемость</GridItem>
+        <GridItem fontWeight="bold">{t("paybackPeriod")}</GridItem>
         {properties.map((property) => (
           <GridItem
             key={property.id}
@@ -234,21 +236,21 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                 : "normal"
             }
           >
-            {(property.paybackPeriod || 0).toFixed(2)} лет
+            {(property.paybackPeriod || 0).toFixed(2)} {t("years")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Доходность на вложенные</GridItem>
+        <GridItem fontWeight="bold">{t("cashOnCash")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {(property.cashOnCash || 0).toFixed(2)}%
+            {(property.cashOnCash || 0).toFixed(2)}{t("percent")}
           </GridItem>
         ))}
 
-        <GridItem fontWeight="bold">Капитализация</GridItem>
+        <GridItem fontWeight="bold">{t("capRate")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {(property.capRate || 0).toFixed(2)}%
+            {(property.capRate || 0).toFixed(2)}{t("percent")}
           </GridItem>
         ))}
       </Grid>
