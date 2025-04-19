@@ -71,6 +71,21 @@ export const translations = {
     currencyRUB: "Российский рубль",
     currencyUSD: "Доллар США",
     currencyEUR: "Евро",
+
+    // Google Sheets Integration
+    saveToGoogle: "Сохранить в Google",
+    saveToGoogleTooltip: "Сохранить объекты в Google Таблицы",
+    configureGoogleSheetsFirst: "Сначала настройте Google Таблицы",
+    savingToGoogle: "Сохранение...",
+    loadingFromGoogle: "Загрузка из Google Таблиц",
+    configureGoogleSheets: "Настройка Google Таблиц",
+    googleSheetsConfigInstructions:
+      "Для использования Google Таблиц вам необходимо указать ID таблицы",
+    spreadsheetId: "ID таблицы",
+    enterSpreadsheetId: "Введите ID таблицы",
+    spreadsheetIdHelp: "ID находится в URL таблицы между /d/ и /edit",
+    cancel: "Отмена",
+    saveConfig: "Сохранить настройки",
   },
   en: {
     // Page titles
@@ -143,5 +158,20 @@ export const translations = {
     currencyRUB: "Russian Ruble",
     currencyUSD: "US Dollar",
     currencyEUR: "Euro",
+
+    // Google Sheets Integration
+    saveToGoogle: "Save to Google",
+    saveToGoogleTooltip: "Save properties to Google Sheets",
+    configureGoogleSheetsFirst: "Configure Google Sheets first",
+    savingToGoogle: "Saving...",
+    loadingFromGoogle: "Loading from Google Sheets",
+    configureGoogleSheets: "Configure Google Sheets",
+    googleSheetsConfigInstructions:
+      "To use Google Sheets, you need to provide a spreadsheet ID",
+    spreadsheetId: "Spreadsheet ID",
+    enterSpreadsheetId: "Enter spreadsheet ID",
+    spreadsheetIdHelp: "ID is in the spreadsheet URL between /d/ and /edit",
+    cancel: "Cancel",
+    saveConfig: "Save Configuration",
   },
 };

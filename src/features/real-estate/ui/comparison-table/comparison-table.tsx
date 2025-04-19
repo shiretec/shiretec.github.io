@@ -1,28 +1,37 @@
 import React from "react";
-import {
-  Box,
-  Heading,
-  Text,
-  IconButton,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
-import { LuPencil, LuTrash2 } from "react-icons/lu";
-import { RealEstateProperty } from "../../model";
+import { Box, Heading, Text, Button, Grid, GridItem } from "@chakra-ui/react";
 import { useI18n } from "../../../i18n/model/use-i18n-redux";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../../app/providers/store/hooks";
+import { RootState } from "../../../../app/providers/store/store";
+import {
+  selectProperties,
+  removeProperty,
+  selectProperty,
+} from "../../model/properties-slice";
 
-interface ComparisonTableProps {
-  properties: RealEstateProperty[];
-  onEdit: (propertyId: string) => void;
-  onDelete: (propertyId: string) => void;
-}
+// No props needed as we're using Redux
+type ComparisonTableProps = Record<string, never>;
 
-export const ComparisonTable: React.FC<ComparisonTableProps> = ({
-  properties,
-  onEdit,
-  onDelete,
-}) => {
+export const ComparisonTable: React.FC<ComparisonTableProps> = () => {
   const { t, formatAmount } = useI18n();
+  const dispatch = useAppDispatch();
+
+  // Get properties from Redux store
+  const properties = useAppSelector((state: RootState) =>
+    selectProperties(state),
+  );
+
+  const handleEdit = (propertyId: string) => {
+    dispatch(selectProperty(propertyId));
+  };
+
+  const handleDelete = (propertyId: string) => {
+    dispatch(removeProperty(propertyId));
+  };
+
   if (properties.length === 0) {
     return (
       <Box mt={8} p={4} textAlign="center" bg="gray.50" borderRadius="md">
@@ -57,20 +66,21 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                   {property.name || t("propertyFormTitle")}
                 </Heading>
                 <Box mt={2} display="flex" gap={2}>
-                  <IconButton
-                    aria-label="Edit property"
-                    size="xs"
-                    onClick={() => onEdit(property.id)}
+                  <Button
+                    size="sm"
+                    colorScheme="blue"
+                    onClick={() => handleEdit(property.id)}
+                    mr={2}
                   >
-                    <LuPencil size={16} />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Delete property"
-                    size="xs"
-                    onClick={() => onDelete(property.id)}
+                    {t("edit")}
+                  </Button>
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={() => handleDelete(property.id)}
                   >
-                    <LuTrash2 size={16} />
-                  </IconButton>
+                    {t("delete")}
+                  </Button>
                 </Box>
               </Box>
             </Box>

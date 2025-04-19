@@ -22,7 +22,7 @@ export const useI18n = () => {
 
   const t = useCallback(
     (key: TranslationKey): string => {
-      return translations[language][key] || key;
+      return translations[language as keyof typeof translations][key] || key;
     },
     [language],
   );
@@ -30,8 +30,9 @@ export const useI18n = () => {
   const formatAmount = useCallback(
     (amount: number): string => {
       const locale = language === "en" ? "en-US" : "ru-RU";
-      const value = amount * exchangeRates[currency];
-      return `${value.toLocaleString(locale)} ${currencies[currency].symbol}`;
+      const value =
+        amount * exchangeRates[currency as keyof typeof exchangeRates];
+      return `${value.toLocaleString(locale)} ${currencies[currency as keyof typeof currencies].symbol}`;
     },
     [language, currency],
   );
