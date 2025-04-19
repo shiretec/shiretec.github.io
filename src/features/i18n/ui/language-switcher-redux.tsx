@@ -1,14 +1,19 @@
 import React from "react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "../../../app/providers/store/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../app/providers/store/hooks";
 import { setLanguage } from "../model/i18n-slice";
 import { RootState } from "../../../app/providers/store/store";
 
 export const LanguageSwitcher: React.FC = () => {
   const dispatch = useAppDispatch();
-  const currentLanguage = useAppSelector((state: RootState) => state.i18n.language);
-  
-  const handleLanguageChange = (language: 'ru' | 'en') => {
+  const currentLanguage = useAppSelector(
+    (state: RootState) => state.i18n.language,
+  );
+
+  const handleLanguageChange = (language: "ru" | "en") => {
     dispatch(setLanguage(language));
   };
 

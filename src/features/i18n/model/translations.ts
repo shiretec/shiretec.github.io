@@ -65,7 +65,7 @@ export const translations = {
     months: "мес",
     perMonth: "/мес",
     perYear: "/год",
-    
+
     // Currency
     currency: "Валюта",
     currencyRUB: "Российский рубль",
@@ -137,7 +137,7 @@ export const translations = {
     months: "mo",
     perMonth: "/mo",
     perYear: "/yr",
-    
+
     // Currency
     currency: "Currency",
     currencyRUB: "Russian Ruble",

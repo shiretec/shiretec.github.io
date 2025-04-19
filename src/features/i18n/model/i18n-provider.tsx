@@ -29,11 +29,17 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const formatAmount = (amount: number): string => {
-    return formatCurrency(amount, currency, language === 'en' ? 'en-US' : 'ru-RU');
+    return formatCurrency(
+      amount,
+      currency,
+      language === "en" ? "en-US" : "ru-RU",
+    );
   };
 
   return (
-    <I18nContext.Provider value={{ language, setLanguage, currency, setCurrency, t, formatAmount }}>
+    <I18nContext.Provider
+      value={{ language, setLanguage, currency, setCurrency, t, formatAmount }}
+    >
       {children}
     </I18nContext.Provider>
   );

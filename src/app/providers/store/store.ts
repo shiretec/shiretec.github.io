@@ -4,10 +4,10 @@ import i18nReducer from "../../../features/i18n/model/i18n-slice";
 import currencyReducer from "../../../features/currency/model/currency-slice";
 
 export const store = configureStore({
-  reducer: { 
+  reducer: {
     counter: counterSlice.reducer,
     i18n: i18nReducer,
-    currency: currencyReducer
+    currency: currencyReducer,
   },
 });
 

@@ -1,4 +1,4 @@
-export type Currency = 'RUB' | 'USD' | 'EUR';
+export type Currency = "RUB" | "USD" | "EUR";
 
 export interface CurrencyInfo {
   code: Currency;
@@ -8,19 +8,19 @@ export interface CurrencyInfo {
 
 export const currencies: Record<Currency, CurrencyInfo> = {
   RUB: {
-    code: 'RUB',
-    symbol: '₽',
-    name: 'Russian Ruble',
+    code: "RUB",
+    symbol: "₽",
+    name: "Russian Ruble",
   },
   USD: {
-    code: 'USD',
-    symbol: '$',
-    name: 'US Dollar',
+    code: "USD",
+    symbol: "$",
+    name: "US Dollar",
   },
   EUR: {
-    code: 'EUR',
-    symbol: '€',
-    name: 'Euro',
+    code: "EUR",
+    symbol: "€",
+    name: "Euro",
   },
 };
 
@@ -29,13 +29,13 @@ export const currencies: Record<Currency, CurrencyInfo> = {
 export const exchangeRates: Record<Currency, number> = {
   RUB: 1,
   USD: 0.011, // 1 RUB = 0.011 USD
-  EUR: 0.010, // 1 RUB = 0.010 EUR
+  EUR: 0.01, // 1 RUB = 0.010 EUR
 };
 
 export const formatCurrency = (
   amount: number,
   currency: Currency,
-  locale?: string
+  locale?: string,
 ): string => {
   const value = amount * exchangeRates[currency];
   return `${value.toLocaleString(locale)} ${currencies[currency].symbol}`;
@@ -44,7 +44,7 @@ export const formatCurrency = (
 export const convertCurrency = (
   amount: number,
   fromCurrency: Currency,
-  toCurrency: Currency
+  toCurrency: Currency,
 ): number => {
   // Convert to base currency (RUB) first, then to target currency
   const inRUB = amount / exchangeRates[fromCurrency];

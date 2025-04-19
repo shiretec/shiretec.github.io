@@ -1,16 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Currency, currencies, exchangeRates } from './types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Currency, currencies, exchangeRates } from "./types";
 
 interface CurrencyState {
   currency: Currency;
 }
 
 const initialState: CurrencyState = {
-  currency: 'RUB',
+  currency: "RUB",
 };
 
 export const currencySlice = createSlice({
-  name: 'currency',
+  name: "currency",
   initialState,
   reducers: {
     setCurrency: (state, action: PayloadAction<Currency>) => {
@@ -22,17 +22,18 @@ export const currencySlice = createSlice({
 export const { setCurrency } = currencySlice.actions;
 
 // Selectors
-export const selectCurrency = (state: { currency: CurrencyState }): Currency => 
+export const selectCurrency = (state: { currency: CurrencyState }): Currency =>
   state.currency.currency;
 
-export const selectCurrencySymbol = (state: { currency: CurrencyState }): string =>
-  currencies[state.currency.currency].symbol;
+export const selectCurrencySymbol = (state: {
+  currency: CurrencyState;
+}): string => currencies[state.currency.currency].symbol;
 
 // Helper function to format currency amounts
 export const formatAmount = (
-  amount: number, 
-  state: { currency: CurrencyState }, 
-  locale?: string
+  amount: number,
+  state: { currency: CurrencyState },
+  locale?: string,
 ): string => {
   const selectedCurrency = state.currency.currency;
   const value = amount * exchangeRates[selectedCurrency];

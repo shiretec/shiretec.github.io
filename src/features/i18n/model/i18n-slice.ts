@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { translations } from './translations';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { translations } from "./translations";
 
-export type Language = 'ru' | 'en';
+export type Language = "ru" | "en";
 export type TranslationKey = keyof typeof translations.ru;
 
 interface I18nState {
@@ -9,11 +9,11 @@ interface I18nState {
 }
 
 const initialState: I18nState = {
-  language: 'ru',
+  language: "ru",
 };
 
 export const i18nSlice = createSlice({
-  name: 'i18n',
+  name: "i18n",
   initialState,
   reducers: {
     setLanguage: (state, action: PayloadAction<Language>) => {
@@ -25,7 +25,10 @@ export const i18nSlice = createSlice({
 export const { setLanguage } = i18nSlice.actions;
 
 // Selector to get translations
-export const getTranslation = (state: { i18n: I18nState }, key: TranslationKey): string => {
+export const getTranslation = (
+  state: { i18n: I18nState },
+  key: TranslationKey,
+): string => {
   return translations[state.i18n.language][key] || key;
 };
 

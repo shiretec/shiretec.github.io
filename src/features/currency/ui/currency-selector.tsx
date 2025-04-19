@@ -1,5 +1,5 @@
-import React from 'react';
-import { Currency, currencies } from '../model';
+import React from "react";
+import { Currency, currencies } from "../model";
 
 interface CurrencySelectorProps {
   selectedCurrency: Currency;
@@ -15,12 +15,12 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <span style={{ fontWeight: 'bold' }}>Currency:</span>
-      <select 
+    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <span style={{ fontWeight: "bold" }}>Currency:</span>
+      <select
         value={selectedCurrency}
         onChange={handleChange}
-        style={{ padding: '4px 8px', borderRadius: '4px' }}
+        style={{ padding: "4px 8px", borderRadius: "4px" }}
       >
         {Object.values(currencies).map((currency) => (
           <option key={currency.code} value={currency.code}>

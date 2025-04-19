@@ -47,7 +47,9 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
   onAddToComparison,
 }) => {
   const { t } = useI18n();
-  const currency = useAppSelector((state: RootState) => state.currency.currency);
+  const currency = useAppSelector(
+    (state: RootState) => state.currency.currency,
+  );
   const [formData, setFormData] = useState<RealEstateFormState>({
     ...defaultValues,
     ...initialValues,
