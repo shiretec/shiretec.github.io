@@ -578,27 +578,40 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
           <Grid templateColumns="repeat(3, 1fr)" gap={4}>
             <GridItem>
               <Text fontWeight="bold">{t("cashFlow")}:</Text>
-              <Text>{metrics.cashFlow.toFixed(2)} {t("perMonth")}</Text>
+              <Text>
+                {metrics.cashFlow.toFixed(2)} {t("perMonth")}
+              </Text>
             </GridItem>
 
             <GridItem>
               <Text fontWeight="bold">{t("roi")}:</Text>
-              <Text>{metrics.roi.toFixed(2)}{t("percent")}</Text>
+              <Text>
+                {metrics.roi.toFixed(2)}
+                {t("percent")}
+              </Text>
             </GridItem>
 
             <GridItem>
               <Text fontWeight="bold">{t("paybackPeriod")}:</Text>
-              <Text>{metrics.paybackPeriod.toFixed(2)} {t("years")}</Text>
+              <Text>
+                {metrics.paybackPeriod.toFixed(2)} {t("years")}
+              </Text>
             </GridItem>
 
             <GridItem>
               <Text fontWeight="bold">{t("cashOnCash")}:</Text>
-              <Text>{metrics.cashOnCash.toFixed(2)}{t("percent")}</Text>
+              <Text>
+                {metrics.cashOnCash.toFixed(2)}
+                {t("percent")}
+              </Text>
             </GridItem>
 
             <GridItem>
               <Text fontWeight="bold">{t("capRate")}:</Text>
-              <Text>{metrics.capRate.toFixed(2)}{t("percent")}</Text>
+              <Text>
+                {metrics.capRate.toFixed(2)}
+                {t("percent")}
+              </Text>
             </GridItem>
           </Grid>
         </Box>

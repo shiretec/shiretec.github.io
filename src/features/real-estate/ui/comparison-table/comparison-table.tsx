@@ -106,12 +106,17 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
 
         <GridItem fontWeight="bold">{t("interestRate")}</GridItem>
         {properties.map((property) => (
-          <GridItem key={property.id}>{property.interestRate}{t("percent")}</GridItem>
+          <GridItem key={property.id}>
+            {property.interestRate}
+            {t("percent")}
+          </GridItem>
         ))}
 
         <GridItem fontWeight="bold">{t("loanTerm")}</GridItem>
         {properties.map((property) => (
-          <GridItem key={property.id}>{property.loanTerm} {t("years")}</GridItem>
+          <GridItem key={property.id}>
+            {property.loanTerm} {t("years")}
+          </GridItem>
         ))}
 
         {/* Expenses */}
@@ -170,7 +175,10 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
 
         <GridItem fontWeight="bold">{t("occupancyRate")}</GridItem>
         {properties.map((property) => (
-          <GridItem key={property.id}>{property.occupancyRate}{t("percent")}</GridItem>
+          <GridItem key={property.id}>
+            {property.occupancyRate}
+            {t("percent")}
+          </GridItem>
         ))}
 
         {/* Calculated Metrics */}
@@ -215,7 +223,8 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                 : "normal"
             }
           >
-            {(property.roi || 0).toFixed(2)}{t("percent")}
+            {(property.roi || 0).toFixed(2)}
+            {t("percent")}
           </GridItem>
         ))}
 
@@ -243,14 +252,16 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
         <GridItem fontWeight="bold">{t("cashOnCash")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {(property.cashOnCash || 0).toFixed(2)}{t("percent")}
+            {(property.cashOnCash || 0).toFixed(2)}
+            {t("percent")}
           </GridItem>
         ))}
 
         <GridItem fontWeight="bold">{t("capRate")}</GridItem>
         {properties.map((property) => (
           <GridItem key={property.id}>
-            {(property.capRate || 0).toFixed(2)}{t("percent")}
+            {(property.capRate || 0).toFixed(2)}
+            {t("percent")}
           </GridItem>
         ))}
       </Grid>
