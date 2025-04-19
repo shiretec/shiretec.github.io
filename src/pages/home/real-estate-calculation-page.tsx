@@ -5,7 +5,7 @@ import { Copyright } from "../../widgets/copyright";
 import { v4 as uuid } from "uuid";
 
 // Import our new components
-import { PropertyForm } from "../../features/real-estate/ui/property-form/property-form-simplified";
+import { PropertyForm } from "../../features/real-estate/ui/property-form/property-form";
 import { ComparisonTable } from "../../features/real-estate/ui/comparison-table/comparison-table";
 import {
   RealEstateFormState,
