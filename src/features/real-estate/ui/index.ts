@@ -1,2 +1,2 @@
-export * from './property-form';
-export * from './comparison-table';
+export * from "./property-form";
+export * from "./comparison-table";

@@ -1,1 +1,1 @@
-export * from './property-form';
+export * from "./property-form";

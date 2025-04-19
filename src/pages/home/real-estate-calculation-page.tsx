@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Center, Container, Flex, Heading, Stack } from "@chakra-ui/react";
 import { SocialLinks } from "../../widgets/social-links";
 import { Copyright } from "../../widgets/copyright";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 // Import our new components
-import { PropertyForm } from '../../features/real-estate/ui/property-form/property-form-simplified';
-import { ComparisonTable } from '../../features/real-estate/ui/comparison-table/comparison-table';
-import { RealEstateFormState, RealEstateProperty } from '../../features/real-estate/model';
-import { LanguageSwitcher } from '../../features/i18n/ui/language-switcher';
-import { I18nProvider, useI18n } from '../../features/i18n/model';
+import { PropertyForm } from "../../features/real-estate/ui/property-form/property-form-simplified";
+import { ComparisonTable } from "../../features/real-estate/ui/comparison-table/comparison-table";
+import {
+  RealEstateFormState,
+  RealEstateProperty,
+} from "../../features/real-estate/model";
+import { LanguageSwitcher } from "../../features/i18n/ui/language-switcher";
+import { I18nProvider, useI18n } from "../../features/i18n/model";
 
 // The main page component wrapped with I18nProvider
 export const RealEstateCalculationPage = () => {
@@ -23,24 +26,27 @@ export const RealEstateCalculationPage = () => {
 // The actual calculator component with access to i18n
 const RealEstateCalculator = () => {
   const { t, language, setLanguage } = useI18n();
-  
+
   // State for managing properties
   const [properties, setProperties] = useState<RealEstateProperty[]>([]);
-  
+
   // State for the current property being edited
-  const [currentProperty, setCurrentProperty] = useState<RealEstateFormState | null>(null);
-  const [editingPropertyId, setEditingPropertyId] = useState<string | null>(null);
-  
+  const [currentProperty, setCurrentProperty] =
+    useState<RealEstateFormState | null>(null);
+  const [editingPropertyId, setEditingPropertyId] = useState<string | null>(
+    null,
+  );
+
   // Handle saving a property
   const handleSaveProperty = (propertyData: RealEstateFormState) => {
     if (editingPropertyId) {
       // Update existing property
-      setProperties(prevProperties => 
-        prevProperties.map(prop => 
-          prop.id === editingPropertyId 
-            ? { ...propertyData, id: editingPropertyId } 
-            : prop
-        )
+      setProperties((prevProperties) =>
+        prevProperties.map((prop) =>
+          prop.id === editingPropertyId
+            ? { ...propertyData, id: editingPropertyId }
+            : prop,
+        ),
       );
       setEditingPropertyId(null);
     } else {
@@ -55,14 +61,14 @@ const RealEstateCalculator = () => {
         cashOnCash: calculateCashOnCash(propertyData),
         paybackPeriod: calculatePaybackPeriod(propertyData),
       };
-      
-      setProperties(prev => [...prev, newProperty]);
+
+      setProperties((prev) => [...prev, newProperty]);
     }
-    
+
     // Reset form
     setCurrentProperty(null);
   };
-  
+
   // Handle adding a property to comparison
   const handleAddToComparison = (propertyData: RealEstateFormState) => {
     const newProperty: RealEstateProperty = {
@@ -75,107 +81,115 @@ const RealEstateCalculator = () => {
       cashOnCash: calculateCashOnCash(propertyData),
       paybackPeriod: calculatePaybackPeriod(propertyData),
     };
-    
-    setProperties(prev => [...prev, newProperty]);
+
+    setProperties((prev) => [...prev, newProperty]);
     setCurrentProperty(null);
   };
-  
+
   // Handle editing a property
   const handleEditProperty = (propertyId: string) => {
-    const propertyToEdit = properties.find(prop => prop.id === propertyId);
+    const propertyToEdit = properties.find((prop) => prop.id === propertyId);
     if (propertyToEdit) {
       setCurrentProperty(propertyToEdit);
       setEditingPropertyId(propertyId);
     }
   };
-  
+
   // Handle deleting a property
   const handleDeleteProperty = (propertyId: string) => {
-    setProperties(prev => prev.filter(prop => prop.id !== propertyId));
+    setProperties((prev) => prev.filter((prop) => prop.id !== propertyId));
     if (editingPropertyId === propertyId) {
       setEditingPropertyId(null);
       setCurrentProperty(null);
     }
   };
-  
+
   // Calculation functions
   const calculateCashFlow = (property: RealEstateFormState): number => {
     const loanAmount = property.initialInvestment - property.downPayment;
     const monthlyInterestRate = property.interestRate / 100 / 12;
     const numberOfPayments = property.loanTerm * 12;
-    
+
     // Calculate monthly mortgage payment
     let monthlyMortgagePayment = 0;
     if (monthlyInterestRate > 0 && numberOfPayments > 0) {
-      monthlyMortgagePayment = loanAmount * 
-        (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / 
+      monthlyMortgagePayment =
+        (loanAmount *
+          (monthlyInterestRate *
+            Math.pow(1 + monthlyInterestRate, numberOfPayments))) /
         (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
     }
-    
+
     // Total monthly expenses
-    const totalMonthlyExpenses = 
-      property.propertyTax / 12 + 
-      property.insurance / 12 + 
-      property.utilities + 
-      property.maintenance + 
-      property.managementFees + 
+    const totalMonthlyExpenses =
+      property.propertyTax / 12 +
+      property.insurance / 12 +
+      property.utilities +
+      property.maintenance +
+      property.managementFees +
       monthlyMortgagePayment;
-    
+
     // Monthly income with occupancy rate
-    const effectiveMonthlyRent = property.monthlyRent * (property.occupancyRate / 100);
-    
+    const effectiveMonthlyRent =
+      property.monthlyRent * (property.occupancyRate / 100);
+
     // Cash flow
     return effectiveMonthlyRent - totalMonthlyExpenses;
   };
-  
+
   const calculateROI = (property: RealEstateFormState): number => {
     const annualCashFlow = calculateCashFlow(property) * 12;
-    return property.initialInvestment > 0 
-      ? (annualCashFlow / property.initialInvestment) * 100 
+    return property.initialInvestment > 0
+      ? (annualCashFlow / property.initialInvestment) * 100
       : 0;
   };
-  
+
   const calculateCapRate = (property: RealEstateFormState): number => {
     const annualCashFlow = calculateCashFlow(property) * 12;
-    return property.initialInvestment > 0 
-      ? (annualCashFlow / property.initialInvestment) * 100 
+    return property.initialInvestment > 0
+      ? (annualCashFlow / property.initialInvestment) * 100
       : 0;
   };
-  
+
   const calculateCashOnCash = (property: RealEstateFormState): number => {
     const annualCashFlow = calculateCashFlow(property) * 12;
-    return property.downPayment > 0 
-      ? (annualCashFlow / property.downPayment) * 100 
+    return property.downPayment > 0
+      ? (annualCashFlow / property.downPayment) * 100
       : 0;
   };
-  
+
   const calculatePaybackPeriod = (property: RealEstateFormState): number => {
     const annualCashFlow = calculateCashFlow(property) * 12;
-    return annualCashFlow > 0 
-      ? property.initialInvestment / annualCashFlow 
-      : 0;
+    return annualCashFlow > 0 ? property.initialInvestment / annualCashFlow : 0;
   };
-  
+
   return (
     <Flex direction="column" minH="100vh">
-      <Flex as="header" bg="purple.200" p={2} minH={55} justifyContent="space-between" alignItems="center">
-        <Heading size="lg">{t('pageTitle')}</Heading>
-        <LanguageSwitcher 
-          currentLanguage={language} 
-          onLanguageChange={(lang: string) => setLanguage(lang as 'ru' | 'en')} 
+      <Flex
+        as="header"
+        bg="purple.200"
+        p={2}
+        minH={55}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Heading size="lg">{t("pageTitle")}</Heading>
+        <LanguageSwitcher
+          currentLanguage={language}
+          onLanguageChange={(lang: string) => setLanguage(lang as "ru" | "en")}
         />
       </Flex>
 
       <Container maxW="container.xl" flex={1} py={4}>
         {/* Property Form */}
-        <PropertyForm 
+        <PropertyForm
           initialValues={currentProperty || undefined}
           onSave={handleSaveProperty}
           onAddToComparison={handleAddToComparison}
         />
-        
+
         {/* Comparison Table */}
-        <ComparisonTable 
+        <ComparisonTable
           properties={properties}
           onEdit={handleEditProperty}
           onDelete={handleDeleteProperty}
