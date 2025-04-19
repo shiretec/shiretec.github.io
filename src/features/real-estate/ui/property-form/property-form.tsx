@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -12,8 +12,20 @@ import {
 import { RealEstateFormState } from "../../model";
 import { useI18n } from "../../../i18n/model/use-i18n-redux";
 import { currencies } from "../../../currency/model";
-import { useAppSelector } from "../../../../app/providers/store/hooks";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../../app/providers/store/hooks";
 import { RootState } from "../../../../app/providers/store/store";
+import {
+  selectFormData,
+  selectActiveTab,
+  setFormData,
+  updateField,
+  updateNumberField,
+  setActiveTab,
+  resetForm,
+} from "../../model/property-form-slice";
 
 interface PropertyFormProps {
   initialValues?: Partial<RealEstateFormState>;
@@ -21,71 +33,54 @@ interface PropertyFormProps {
   onAddToComparison: (property: RealEstateFormState) => void;
 }
 
-const defaultValues: RealEstateFormState = {
-  name: "",
-  propertyType: "",
-  address: "",
-  photoUrl: "",
-  initialInvestment: 0,
-  downPayment: 0,
-  interestRate: 0,
-  loanTerm: 0,
-  propertyTax: 0,
-  insurance: 0,
-  utilities: 0,
-  maintenance: 0,
-  managementFees: 0,
-  monthlyRent: 0,
-  occupancyRate: 100,
-  seasonalAdjustments: false,
-};
-
 export const PropertyForm: React.FC<PropertyFormProps> = ({
   initialValues,
   onSave,
   onAddToComparison,
 }) => {
   const { t } = useI18n();
+  const dispatch = useAppDispatch();
   const currency = useAppSelector(
     (state: RootState) => state.currency.currency,
   );
-  const [formData, setFormData] = useState<RealEstateFormState>({
-    ...defaultValues,
-    ...initialValues,
-  });
-  const [activeTab, setActiveTab] = useState<"basic" | "expenses" | "income">(
-    "basic",
+
+  // Get form data and active tab from Redux
+  const formData = useAppSelector((state: RootState) => selectFormData(state));
+  const activeTab = useAppSelector((state: RootState) =>
+    selectActiveTab(state),
   );
+
+  // Initialize form data with initial values if provided
+  useEffect(() => {
+    if (initialValues) {
+      dispatch(setFormData({ ...formData, ...initialValues }));
+    }
+  }, [dispatch, initialValues, formData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value, type } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "number" ? parseFloat(value) : value,
-    }));
+    if (type === "number") {
+      dispatch(updateNumberField({ name, value }));
+    } else {
+      dispatch(updateField({ name, value }));
+    }
   };
 
   const handleNumberChange = (name: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: parseFloat(value) || 0,
-    }));
+    dispatch(updateNumberField({ name, value }));
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: checked,
-    }));
+    dispatch(updateField({ name, value: checked }));
   };
 
   const handleSave = () => {
     onSave(formData);
+    dispatch(resetForm());
   };
 
   const handleAddToComparison = () => {
@@ -172,21 +167,21 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({
         <Flex mb={4}>
           <Button
             variant={activeTab === "basic" ? "solid" : "outline"}
-            onClick={() => setActiveTab("basic")}
+            onClick={() => dispatch(setActiveTab("basic"))}
             mr={2}
           >
             {t("propertyInfoTab")}
           </Button>
           <Button
             variant={activeTab === "expenses" ? "solid" : "outline"}
-            onClick={() => setActiveTab("expenses")}
+            onClick={() => dispatch(setActiveTab("expenses"))}
             mr={2}
           >
             {t("expensesTab")}
           </Button>
           <Button
             variant={activeTab === "income" ? "solid" : "outline"}
-            onClick={() => setActiveTab("income")}
+            onClick={() => dispatch(setActiveTab("income"))}
           >
             {t("incomeTab")}
           </Button>
